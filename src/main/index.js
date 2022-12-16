@@ -6,9 +6,13 @@ const Store = require("electron-store")
 let mainWindow
 let CONFIG = new Store()
 let isDev = !app.isPackaged
-let windowConfig = {
+let windowPosConfig = {
 	width: 1280,
 	height: 680,
+}
+let windowConfig = {
+	minWidth: 800,
+	minHeight: 600,
 	show: false,
 	frame: false,
 	autoHideMenuBar: true,
@@ -21,10 +25,10 @@ let windowConfig = {
 }
 
 function createWindow() {
-	Object.assign(windowConfig, CONFIG.get("winBounds"))
+	Object.assign(windowConfig, windowPosConfig, CONFIG.get("winBounds"))
 	mainWindow = new BrowserWindow(windowConfig)
 
-	if (windowConfig.isMaximized) {
+	if (windowPosConfig.isMaximized) {
 		mainWindow.maximize()
 	}
 
@@ -49,8 +53,8 @@ function createWindow() {
 
 	// saves window's properties
 	mainWindow.on("close", () => {
-		Object.assign(windowConfig, { isMaximized: mainWindow.isMaximized() }, mainWindow.getNormalBounds())
-		CONFIG.set("winBounds", windowConfig)
+		Object.assign(windowPosConfig, { isMaximized: mainWindow.isMaximized() }, mainWindow.getNormalBounds())
+		CONFIG.set("winBounds", windowPosConfig)
 	})
 }
 
