@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
 
+/* reset.css */
 a,
 body,
 br,
@@ -36,6 +37,7 @@ ul {
 	vertical-align: baseline;
 }
 
+/* global colors */
 :root {
 	--spice-text: #abb2bf;
 	--spice-main: #2e3440;
@@ -46,4 +48,19 @@ ul {
 body {
 	font-family: "Quicksand", sans-serif;
 	background-color: var(--spice-main);
+}
+
+/* disable user select (pressing tab to select elements) */
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: default;
+}
+input,
+button,
+textarea,
+:focus {
+	outline: none;
 }

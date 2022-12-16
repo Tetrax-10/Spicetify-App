@@ -1,7 +1,9 @@
-import { app, shell, BrowserWindow, ipcMain } from "electron"
+import { app, shell, BrowserWindow } from "electron"
 import * as path from "path"
+import handler from "./ipc-handler"
 const Store = require("electron-store")
 
+let mainWindow
 let CONFIG = new Store()
 let isDev = !app.isPackaged
 let windowConfig = {
@@ -20,8 +22,11 @@ let windowConfig = {
 
 function createWindow() {
 	Object.assign(windowConfig, CONFIG.get("winBounds"))
+	mainWindow = new BrowserWindow(windowConfig)
 
-	const mainWindow = new BrowserWindow(windowConfig)
+	if (windowConfig.isMaximized) {
+		mainWindow.maximize()
+	}
 
 	mainWindow.on("ready-to-show", () => {
 		mainWindow.show()
@@ -44,15 +49,13 @@ function createWindow() {
 
 	// saves window's properties
 	mainWindow.on("close", () => {
-		CONFIG.set("winBounds", mainWindow.getBounds())
-	})
-
-	ipcMain.handle("log", async (event, args) => {
-		return process.env["ELECTRON_RENDERER_URL"]
+		Object.assign(windowConfig, { isMaximized: mainWindow.isMaximized() }, mainWindow.getNormalBounds())
+		CONFIG.set("winBounds", windowConfig)
 	})
 }
 
 app.whenReady().then(() => {
+	handler()
 	createWindow()
 
 	app.on("activate", () => {
@@ -65,3 +68,5 @@ app.on("window-all-closed", () => {
 		app.quit()
 	}
 })
+
+export { mainWindow }
