@@ -1,0 +1,9 @@
+out
+dist
+LICENSE.md
+package.json
+package-lock.json
+node_modules
+*.yml
+*.svg
+*.plist
