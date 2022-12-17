@@ -1,20 +1,20 @@
 .main-titlebar {
-	background-color: var(--spice-main);
-	color: white;
-	height: 28px;
-	display: flex;
-	align-items: center;
-	-webkit-app-region: drag;
+    background-color: var(--spice-main);
+    color: white;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    -webkit-app-region: drag;
 
-	&-logo {
-		margin-left: 7px;
-		margin-right: 7px;
-	}
+    &-logo {
+        margin-left: 7px;
+        margin-right: 7px;
+    }
 
-	&-title {
-		color: var(--spice-text);
-		font-size: 13px;
-		font-weight: 600;
-		margin-top: 2px;
-	}
+    &-title {
+        color: var(--spice-text);
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 2px;
+    }
 }

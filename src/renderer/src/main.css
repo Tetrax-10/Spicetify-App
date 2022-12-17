@@ -31,36 +31,36 @@ svg,
 title,
 textarea,
 ul {
-	border: 0;
-	margin: 0;
-	padding: 0;
-	vertical-align: baseline;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
 }
 
 /* global colors */
 :root {
-	--spice-text: #abb2bf;
-	--spice-main: #2e3440;
-	--spice-main-soft: #3b4354;
-	--spice-main-softer: #363d4c;
+    --spice-text: #abb2bf;
+    --spice-main: #2e3440;
+    --spice-main-soft: #3b4354;
+    --spice-main-softer: #363d4c;
 }
 
 body {
-	font-family: "Quicksand", sans-serif;
-	background-color: var(--spice-main);
+    font-family: "Quicksand", sans-serif;
+    background-color: var(--spice-main);
 }
 
 /* disable user select (pressing tab to select elements) */
 :not(input):not(textarea),
 :not(input):not(textarea)::after,
 :not(input):not(textarea)::before {
-	-webkit-user-select: none;
-	user-select: none;
-	cursor: default;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
 }
 input,
 button,
 textarea,
 :focus {
-	outline: none;
+    outline: none;
 }
