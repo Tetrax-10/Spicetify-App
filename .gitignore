@@ -3,3 +3,4 @@ dist
 dev
 out
 *.log*
+package-lock.json

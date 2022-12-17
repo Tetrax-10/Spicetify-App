@@ -15,6 +15,7 @@ let windowConfig = {
 	minHeight: 600,
 	show: false,
 	frame: false,
+	backgroundColor: "#2e3440",
 	autoHideMenuBar: true,
 	webPreferences: {
 		preload: path.join(__dirname, "../preload/preload.js"),
@@ -28,20 +29,6 @@ function createWindow() {
 	Object.assign(windowConfig, windowPosConfig, CONFIG.get("winBounds"))
 	mainWindow = new BrowserWindow(windowConfig)
 
-	if (windowPosConfig.isMaximized) {
-		mainWindow.maximize()
-	}
-
-	mainWindow.on("ready-to-show", () => {
-		mainWindow.show()
-	})
-
-	// external links (new tab liinks) will be opened in default browser
-	mainWindow.webContents.setWindowOpenHandler((details) => {
-		shell.openExternal(details.url)
-		return { action: "deny" }
-	})
-
 	if (isDev && process.env["ELECTRON_RENDERER_URL"]) {
 		// loads app in development env with devtools access: http://localhost:5173
 		mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"])
@@ -50,6 +37,22 @@ function createWindow() {
 		// opens index.html when packaged and build for production
 		mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"))
 	}
+
+	// external links (new tab liinks) will be opened in default browser
+	mainWindow.webContents.setWindowOpenHandler((details) => {
+		shell.openExternal(details.url)
+		return { action: "deny" }
+	})
+
+	mainWindow.on("ready-to-show", () => {
+		setTimeout(() => {
+			if (windowConfig.isMaximized) {
+				mainWindow.maximize()
+			} else {
+				mainWindow.show()
+			}
+		}, 300)
+	})
 
 	// saves window's properties
 	mainWindow.on("close", () => {
