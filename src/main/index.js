@@ -1,5 +1,5 @@
 import { app, shell, BrowserWindow } from "electron"
-import * as path from "path"
+import path from "path"
 import handler from "./ipc-handler"
 const Store = require("electron-store")
 

@@ -1,16 +1,20 @@
 import { ipcMain } from "electron"
-import Utils from "./utils"
+import { windowControls, writeFile, writeImage } from "./Utils/Utils"
 
 export default function handler() {
-    ipcMain.handle("get/platform", async (event, args) => {
+    ipcMain.handle("getFromElectron/platform", async (event, args) => {
         return process.platform
     })
 
-    ipcMain.on("send/windowControls", (event, action) => {
-        Utils.windowControls(action)
+    ipcMain.on("sendToElectron/windowControls", (event, action) => {
+        windowControls(action)
     })
 
-    ipcMain.handle("log", async (event, args) => {
-        return null
+    ipcMain.on("sendToElectron/writeFile", async (event, action) => {
+        await writeFile(action)
+    })
+
+    ipcMain.on("sendToElectron/writeImage", async (event, action) => {
+        await writeImage(action)
     })
 }

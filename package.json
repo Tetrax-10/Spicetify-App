@@ -1,10 +1,10 @@
 {
-  "name": "spicetify-app",
+  "name": "spicetify",
   "version": "1.0.0",
   "description": "An Electron application with Solid",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://www.electronjs.org",
+  "author": "Tetrax-10",
+  "homepage": "https://spicetify.app/",
   "boilerplate": "npm create @quick-start/electron",
   "scripts": {
     "format": "prettier --write .",
@@ -22,13 +22,13 @@
   },
   "devDependencies": {
     "@electron/notarize": "^1.2.3",
-    "electron": "^21.3.0",
+    "electron": "^22.0.0",
     "electron-builder": "^23.6.0",
     "electron-vite": "^1.0.14",
     "prettier": "^2.7.1",
     "sass": "^1.56.2",
     "solid-js": "^1.6.2",
-    "vite": "^3.2.4",
+    "vite": "^4.0.1",
     "vite-plugin-solid": "^2.4.0"
   }
 }

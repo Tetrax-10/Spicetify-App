@@ -1,9 +1,10 @@
 import { contextBridge, ipcRenderer } from "electron"
 
 let API = {
-    log: () => ipcRenderer.invoke("log"),
-    getPlatform: () => ipcRenderer.invoke("get/platform"),
-    windowControls: (action) => ipcRenderer.send("send/windowControls", action),
+    getPlatform: () => ipcRenderer.invoke("getFromElectron/platform"),
+    windowControls: (action) => ipcRenderer.send("sendToElectron/windowControls", action),
+    writeFile: (args) => ipcRenderer.send("sendToElectron/writeFile", args),
+    writeImage: (args) => ipcRenderer.send("sendToElectron/writeImage", args),
 }
 
 contextBridge.exposeInMainWorld("electronAPI", API)

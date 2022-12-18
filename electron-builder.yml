@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: spicetify-app
+appId: com.spicetify.app
+productName: spicetify
 directories:
   buildResources: build
 files:
