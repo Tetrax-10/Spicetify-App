@@ -1,5 +1,5 @@
 import { ipcMain } from "electron"
-import { windowControls, writeFile, writeImage } from "./Utils/Utils"
+import { windowControls, downloadGithubFile, downloadGithubLatestRelease } from "./Utils/Utils"
 
 export default function handler() {
     ipcMain.handle("getFromElectron/platform", async (event, args) => {
@@ -10,11 +10,11 @@ export default function handler() {
         windowControls(action)
     })
 
-    ipcMain.on("sendToElectron/writeFile", async (event, action) => {
-        await writeFile(action)
+    ipcMain.on("sendToElectron/downloadGithubFile", (event, action) => {
+        downloadGithubFile(action)
     })
 
-    ipcMain.on("sendToElectron/writeImage", async (event, action) => {
-        await writeImage(action)
+    ipcMain.on("sendToElectron/downloadGithubLatestRelease", (event, action) => {
+        downloadGithubLatestRelease(action)
     })
 }

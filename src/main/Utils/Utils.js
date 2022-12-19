@@ -1,7 +1,9 @@
 import { mainWindow } from "../index"
 import path from "path"
 import fs from "fs"
-import { Buffer } from "buffer"
+import https from "https"
+import { pipeline } from "stream/promises"
+import { downloadRelease } from "@terascope/fetch-github-release"
 
 function windowControls(action) {
     switch (action) {
@@ -17,14 +19,39 @@ function windowControls(action) {
     }
 }
 
-async function writeFile({ content, fileName }) {
-    await fs.promises.writeFile(path.join(__dirname, fileName), content)
+async function downloadGithubFile(url) {
+    return new Promise(async (onSuccess) => {
+        https.get(url, async (res) => {
+            let fileName = url.split("/").pop()
+            const fileWriteStream = fs.createWriteStream(path.join(__dirname, fileName), {
+                autoClose: true,
+                flags: "w",
+            })
+            await pipeline(res, fileWriteStream)
+            onSuccess("success")
+        })
+    })
 }
 
-async function writeImage({ binaryData, fileName }) {
-    let formatedBinaryData = binaryData.match(/^data:image\/\w+;base64,(.+)$/)[1]
-    let buffer = Buffer.from(formatedBinaryData, "base64")
-    await writeFile({ content: buffer, fileName: fileName })
+function downloadGithubLatestRelease({ user, repo, leaveZipped = true, assetType = "windows-x64" }) {
+    let outputdir = path.join(__dirname)
+    let disableLogging = false
+
+    function filterRelease(release) {
+        return release.prerelease === false
+    }
+
+    function filterAsset(asset) {
+        return asset.name.includes(assetType)
+    }
+
+    downloadRelease(user, repo, outputdir, filterRelease, filterAsset, leaveZipped, disableLogging)
+        .then(() => {
+            console.log("All done!")
+        })
+        .catch((err) => {
+            console.error(err.message)
+        })
 }
 
-export { windowControls, writeFile, writeImage }
+export { windowControls, downloadGithubFile, downloadGithubLatestRelease }
