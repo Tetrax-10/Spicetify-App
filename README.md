@@ -11,7 +11,7 @@ A GUI App for Spicetify Cli
 ### !. Clone/Download this repo
 
 ```sh
-gh repo clone Tetrax-10/Spicetify
+gh repo clone Tetrax-10/Spicetify-App
 ```
 
 ### 2. Install Dependencies
