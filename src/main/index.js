@@ -21,6 +21,7 @@ let windowConfig = {
         preload: path.join(__dirname, "../preload/preload.js"),
         nodeIntegration: false,
         contextIsolation: true,
+        enableRemoteModule: false,
         devTools: true,
     },
 }

@@ -6,7 +6,7 @@ let API = {
         if (validChannels.includes(channel)) {
             ipcRenderer.send(channel, data)
         } else {
-            console.log("can't send data: channel is invalid")
+            console.error("can't send data: channel is invalid")
         }
     },
     receive: (channel, func) => {
@@ -14,7 +14,7 @@ let API = {
         if (validChannels.includes(channel)) {
             ipcRenderer.on(channel, (event, ...args) => func(...args))
         } else {
-            console.log("can't receive data: channel is invalid")
+            console.error("can't receive data: channel is invalid")
         }
     },
     getOS: () => ipcRenderer.invoke("getFromElectron/getOS"),
