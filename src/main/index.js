@@ -20,8 +20,8 @@ let windowConfig = {
     webPreferences: {
         preload: path.join(__dirname, "../preload/preload.js"),
         nodeIntegration: false,
+        contextIsolation: true,
         devTools: true,
-        sandbox: false,
     },
 }
 

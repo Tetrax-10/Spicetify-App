@@ -1,15 +1,15 @@
 import "./WindowControls.scss"
 
-let os = await window.electronAPI.getPlatform()
+let os = await window.ElectronAPI.getOS()
 
 function minimize() {
-    window.electronAPI.windowControls("minimize")
+    window.ElectronAPI.windowControls("minimize")
 }
 function maximize() {
-    window.electronAPI.windowControls("maximize")
+    window.ElectronAPI.windowControls("maximize")
 }
 function close() {
-    window.electronAPI.windowControls("close")
+    window.ElectronAPI.windowControls("close")
 }
 
 export default function WindowControls() {
@@ -17,7 +17,7 @@ export default function WindowControls() {
         <>
             <div class="main-titlebar-window-controls main-titlebar-standard-controls">
                 {(() => {
-                    if (os != "darwin") {
+                    if (os != "Mac") {
                         return (
                             <>
                                 <button onClick={minimize} tabindex="-1" id="minimize-button">

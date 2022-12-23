@@ -64,3 +64,9 @@ textarea,
 :focus {
     outline: none;
 }
+
+.shell-output {
+    color: var(--spice-text);
+    font-size: 25px;
+    font-weight: 600;
+}

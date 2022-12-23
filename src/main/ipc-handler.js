@@ -1,20 +1,23 @@
 import { ipcMain } from "electron"
-import { windowControls, downloadGithubFile, downloadGithubLatestRelease } from "./Utils/Utils"
+import { getOS, getPath, windowControls, downloadGithubFile, downloadGithubLatestRelease, execShellCommands } from "./Utils/Utils"
 
 export default function handler() {
-    ipcMain.handle("getFromElectron/platform", async (event, args) => {
-        return process.platform
+    ipcMain.handle("getFromElectron/getOS", async (event, args) => {
+        return getOS()
     })
-
+    ipcMain.handle("getFromElectron/getPath", (event, type) => {
+        return getPath(type)
+    })
     ipcMain.on("sendToElectron/windowControls", (event, action) => {
         windowControls(action)
     })
-
-    ipcMain.on("sendToElectron/downloadGithubFile", (event, action) => {
-        downloadGithubFile(action)
+    ipcMain.on("sendToElectron/downloadGithubFile", (event, url) => {
+        downloadGithubFile(url)
     })
-
-    ipcMain.on("sendToElectron/downloadGithubLatestRelease", (event, action) => {
-        downloadGithubLatestRelease(action)
+    ipcMain.on("sendToElectron/downloadGithubLatestRelease", (event, args) => {
+        downloadGithubLatestRelease(args)
+    })
+    ipcMain.on("sendToElectron/execShellCommands", (event, commands) => {
+        execShellCommands(commands)
     })
 }

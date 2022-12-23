@@ -1,10 +1,28 @@
 import { contextBridge, ipcRenderer } from "electron"
 
 let API = {
-    getPlatform: () => ipcRenderer.invoke("getFromElectron/platform"),
+    send: (channel, data) => {
+        let validChannels = []
+        if (validChannels.includes(channel)) {
+            ipcRenderer.send(channel, data)
+        } else {
+            console.log("can't send data: channel is invalid")
+        }
+    },
+    receive: (channel, func) => {
+        let validChannels = ["sendToRenderer/shell-output"]
+        if (validChannels.includes(channel)) {
+            ipcRenderer.on(channel, (event, ...args) => func(...args))
+        } else {
+            console.log("can't receive data: channel is invalid")
+        }
+    },
+    getOS: () => ipcRenderer.invoke("getFromElectron/getOS"),
+    getPath: (action) => ipcRenderer.invoke("getFromElectron/getPath", action),
     windowControls: (action) => ipcRenderer.send("sendToElectron/windowControls", action),
     downloadGithubFile: (action) => ipcRenderer.send("sendToElectron/downloadGithubFile", action),
     downloadGithubLatestRelease: (action) => ipcRenderer.send("sendToElectron/downloadGithubLatestRelease", action),
+    execShellCommands: (action) => ipcRenderer.send("sendToElectron/execShellCommands", action),
 }
 
-contextBridge.exposeInMainWorld("electronAPI", API)
+contextBridge.exposeInMainWorld("ElectronAPI", API)

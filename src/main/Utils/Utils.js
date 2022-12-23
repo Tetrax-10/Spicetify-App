@@ -1,11 +1,54 @@
 import { mainWindow } from "../index"
+import { app } from "electron"
 import path from "path"
 import fs from "fs"
 import https from "https"
 import { pipeline } from "stream/promises"
 import { downloadRelease } from "@terascope/fetch-github-release"
+import { spawn } from "child_process"
 
-function windowControls(action) {
+export function getOS() {
+    let os = process.platform
+
+    if (os === "darwin") {
+        os = "Mac"
+    } else if (os === "win32" || os === "win64") {
+        os = "Windows"
+    } else if (os === "linux") {
+        os = "Linux"
+    }
+
+    return os
+}
+
+export function getPath(type) {
+    const os = getOS()
+    const joiner = os === "Windows" ? "\\" : "/"
+    const userData = app.getPath("userData")
+
+    switch (type) {
+        case "spicetify.exe-path":
+            if (os === "Windows") {
+                return process.env.LOCALAPPDATA + "\\spicetify"
+            }
+        case "spicetify.exe":
+            if (os === "Windows") {
+                return process.env.LOCALAPPDATA + "\\spicetify\\spicetify.exe"
+            }
+        case "spicetify-user-config":
+            return userData
+        case "spicetify-extensions-folder":
+            return userData + joiner + "Extensions"
+        case "spicetify-themes-folder":
+            return userData + joiner + "Themes"
+        case "spicetify-custom_apps-folder":
+            return userData + joiner + "CustomApps"
+        default:
+            return null
+    }
+}
+
+export function windowControls(action) {
     switch (action) {
         case "minimize":
             mainWindow.minimize()
@@ -19,7 +62,7 @@ function windowControls(action) {
     }
 }
 
-async function downloadGithubFile(url) {
+export async function downloadGithubFile(url) {
     return new Promise(async (onSuccess) => {
         https.get(url, async (res) => {
             let fileName = url.split("/").pop()
@@ -33,7 +76,7 @@ async function downloadGithubFile(url) {
     })
 }
 
-function downloadGithubLatestRelease({ user, repo, leaveZipped = true, assetType = "windows-x64" }) {
+export function downloadGithubLatestRelease({ user, repo, leaveZipped = true, assetType = "windows-x64" }) {
     let outputdir = path.join(__dirname)
     let disableLogging = false
 
@@ -54,4 +97,20 @@ function downloadGithubLatestRelease({ user, repo, leaveZipped = true, assetType
         })
 }
 
-export { windowControls, downloadGithubFile, downloadGithubLatestRelease }
+export function execShellCommands(commands) {
+    let shellProcess = spawn("powershell.exe", [commands[0]])
+
+    shellProcess.stdout.on("data", (data) => {
+        mainWindow.webContents.send("sendToRenderer/shell-output", data.toString())
+    })
+    shellProcess.stderr.on("data", (data) => {
+        mainWindow.webContents.send("sendToRenderer/shell-output", "stderr: " + data.toString())
+    })
+    shellProcess.on("exit", () => {
+        mainWindow.webContents.send("sendToRenderer/shell-output", "shell-exited")
+        commands.shift()
+        if (0 < commands.length) {
+            execShellCommands(commands)
+        }
+    })
+}
