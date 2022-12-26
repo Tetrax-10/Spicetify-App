@@ -1,4 +1,7 @@
 import { contextBridge, ipcRenderer } from "electron"
+import { ipcRendererListners } from "./ipc-handler-helpers"
+
+ipcRendererListners()
 
 let API = {
     send: (channel, data) => {

@@ -107,10 +107,12 @@ export function execShellCommands(commands) {
         mainWindow.webContents.send("sendToRenderer/shell-output", "stderr: " + data.toString())
     })
     shellProcess.on("exit", () => {
-        mainWindow.webContents.send("sendToRenderer/shell-output", "shell-exited")
         commands.shift()
         if (0 < commands.length) {
             execShellCommands(commands)
+            mainWindow.webContents.send("sendToRenderer/shell-output", "command-executed")
+        } else {
+            mainWindow.webContents.send("sendToRenderer/shell-output", "all-commands-executed")
         }
     })
 }
