@@ -1,5 +1,5 @@
 appId: com.spicetify.app
-productName: spicetify
+productName: spicetify app
 directories:
   buildResources: build
 files:

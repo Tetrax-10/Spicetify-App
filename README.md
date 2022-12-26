@@ -1,4 +1,4 @@
-# Spicetify ( Under Development 🛠️ )
+# Spicetify App ( Under Development 🛠️ )
 
 A GUI App for Spicetify Cli
 

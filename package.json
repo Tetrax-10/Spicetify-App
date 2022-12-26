@@ -1,5 +1,5 @@
 {
-  "name": "spicetify",
+  "name": "spicetify-app",
   "version": "1.0.0",
   "description": "A GUI App for Spicetify Cli",
   "main": "./out/main/index.js",
