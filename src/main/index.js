@@ -1,7 +1,7 @@
 import { app, shell, BrowserWindow } from "electron"
 import path from "path"
-import handler from "./ipc-handler"
-const Store = require("electron-store")
+import handler from "./main.ipc-handler"
+import Store from "electron-store"
 
 let mainWindow
 let CONFIG = new Store()
@@ -63,8 +63,8 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-    handler()
     createWindow()
+    handler()
 
     app.on("activate", () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()

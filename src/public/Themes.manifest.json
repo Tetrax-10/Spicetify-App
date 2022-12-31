@@ -2,18 +2,17 @@
     "Nord-Spotify": {
         "Name": "Nord Spotify",
         "developers": [{ "name": "Tetrax-10", "link": "https://github.com/Tetrax-10" }],
-        "description": "Norded Spotify, with Dynamic Color support",
+        "description": "A better Nord Theme with no Ads",
         "themeRepoLink": "https://github.com/Tetrax-10/Nord-Spotify",
         "branch": "master",
-        "preview": "/assets/preview.png",
-        "readme": "/README.md",
-        "usercss": "/Nord-Spotify/user.css",
-        "colorini": "/Nord-Spotify/color.ini",
-        "jsHelper": ["/src/nord.js"],
-        "assetsFolder": "null",
-        "defaultColorScheme": "Spotify",
+        "preview": "assets/preview.png",
+        "readme": "README.md",
+        "usercss": "Nord-Spotify/user.css",
+        "colorini": "Nord-Spotify/color.ini",
+        "jsHelper": ["src/nord.js"],
+        "assetsFolder": null,
         "patches": "",
-        "tags": ["nord", "dynamic-theming", "big-cover-arts"],
+        "tags": ["nord", "dynamic-colors", "dynamic-cover-art"],
         "lastSupportedVersion": "latest"
     }
 }

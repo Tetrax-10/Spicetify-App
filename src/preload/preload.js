@@ -1,31 +1,33 @@
 import { contextBridge, ipcRenderer } from "electron"
-import { ipcRendererListners } from "./ipc-handler-helpers"
+import { ipcRendererListners } from "./preload.ipc-helper"
+import { send, receive } from "./utils/preload.utils"
+import { initConfig } from "./utils/preload.config"
+;(async () => {
+    ipcRendererListners()
 
-ipcRendererListners()
+    const ElectronAPI = {
+        ////////// Utils //////////
+        send,
+        receive,
 
-let API = {
-    send: (channel, data) => {
-        let validChannels = []
-        if (validChannels.includes(channel)) {
-            ipcRenderer.send(channel, data)
-        } else {
-            console.error("can't send data: channel is invalid")
-        }
-    },
-    receive: (channel, func) => {
-        let validChannels = ["sendToRenderer/shell-output"]
-        if (validChannels.includes(channel)) {
-            ipcRenderer.on(channel, (event, ...args) => func(...args))
-        } else {
-            console.error("can't receive data: channel is invalid")
-        }
-    },
-    getOS: () => ipcRenderer.invoke("getFromElectron/getOS"),
-    getPath: (action) => ipcRenderer.invoke("getFromElectron/getPath", action),
-    windowControls: (action) => ipcRenderer.send("sendToElectron/windowControls", action),
-    downloadGithubFile: (action) => ipcRenderer.send("sendToElectron/downloadGithubFile", action),
-    downloadGithubLatestRelease: (action) => ipcRenderer.send("sendToElectron/downloadGithubLatestRelease", action),
-    execShellCommands: (action) => ipcRenderer.send("sendToElectron/execShellCommands", action),
-}
+        ////////// Get Info //////////
+        getOS: () => ipcRenderer.invoke("getFromElectron/getOS"),
+        getPath: (type) => ipcRenderer.invoke("getFromElectron/getPath", type),
 
-contextBridge.exposeInMainWorld("ElectronAPI", API)
+        ////////// Send Instructions //////////
+        windowControls: (action) => ipcRenderer.send("sendToElectron/windowControls", action),
+        execShellCommands: (array) => ipcRenderer.send("sendToElectron/execShellCommands", array),
+
+        ////////// Downloader //////////
+        downloadGithubFile: (url) => ipcRenderer.send("sendToElectron/downloadGithubFile", url),
+        downloadGithubLatestRelease: (user, repo, assetType) => ipcRenderer.send("sendToElectron/downloadGithubLatestRelease", [user, repo, assetType]),
+        downloadTheme: (themeFiles) => ipcRenderer.send("sendToElectron/downloadTheme", themeFiles),
+
+        ////////// Config //////////
+        initConfig: await initConfig(),
+        getConfig: () => ipcRenderer.invoke("getFromElectron/getConfig", "rendererSettings"),
+        saveConfig: (config) => ipcRenderer.send("sendToElectron/saveConfig", ["rendererSettings", config]),
+    }
+
+    contextBridge.exposeInMainWorld("ElectronAPI", ElectronAPI)
+})()

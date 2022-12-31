@@ -1,0 +1,6 @@
+{
+    "installedItems": {
+        "theme": "Nord-Spotify",
+        "extensions": ["sortByPlayCount.js", "shuffle+.js"]
+    }
+}
