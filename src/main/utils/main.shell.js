@@ -1,5 +1,6 @@
-import { mainWindow } from "../index"
 import { spawn } from "child_process"
+
+import { mainWindow } from "../index"
 
 export function execShellCommands(commands) {
     let shellProcess = spawn("powershell.exe", [commands[0]])

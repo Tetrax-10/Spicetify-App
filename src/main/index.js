@@ -1,7 +1,8 @@
 import { app, shell, BrowserWindow } from "electron"
 import path from "path"
-import handler from "./main.ipc-handler"
 import Store from "electron-store"
+
+import handler from "./main.ipc-handler"
 
 let mainWindow
 let CONFIG = new Store()

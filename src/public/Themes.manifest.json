@@ -10,7 +10,7 @@
         "usercss": "Nord-Spotify/user.css",
         "colorini": "Nord-Spotify/color.ini",
         "jsHelper": ["src/nord.js"],
-        "assetsFolder": null,
+        "assetsFolder": "src",
         "patches": "",
         "tags": ["nord", "dynamic-colors", "dynamic-cover-art"],
         "lastSupportedVersion": "latest"

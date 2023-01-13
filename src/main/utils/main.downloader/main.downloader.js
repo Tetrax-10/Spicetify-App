@@ -4,6 +4,8 @@ import https from "https"
 import { pipeline } from "stream/promises"
 import { downloadRelease } from "@terascope/fetch-github-release"
 
+import { execShellCommands } from "../main.shell"
+
 export async function downloadGithubFile(url, filePath) {
     return new Promise(async (onSuccess) => {
         https.get(url, async (res) => {
@@ -42,4 +44,8 @@ export function downloadGithubLatestRelease(data) {
 
 export async function createFolder(path) {
     await fs.promises.mkdir(path, { recursive: true })
+}
+
+export async function moveFolder(src, destination) {
+    execShellCommands([`mv -Force ${src} ${destination}`])
 }

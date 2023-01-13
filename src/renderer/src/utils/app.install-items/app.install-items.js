@@ -1,3 +1,7 @@
+import { getConfig, saveConfig } from "../app.config"
+
+let CONFIG = getConfig()
+
 export async function getLatestCommit(owner, repo, filePath) {
     let rawRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits?path=${filePath}&per_page=1`)
     let response = await rawRes.json()
@@ -30,3 +34,21 @@ export async function getFolderContents(owner, repo, folderPath, rawFileLink = "
     return Promise.all(pathArray)
 }
 // console.log(await getFolderContents("Tetrax-10", "Nord-Spotify", "src", "https://raw.githubusercontent.com/Tetrax-10/Nord-Spotify/master/"))
+
+export async function changeInstalledItems(type, data) {
+    switch (type) {
+        case "extension":
+            const extension = await ElectronAPI.formatPath("get-fileName", data)
+            if (!CONFIG.installedItems.extensions.includes(extension)) {
+                CONFIG.installedItems.extensions.push(extension)
+            } else {
+                console.log("extension already installed")
+            }
+            break
+        case "theme":
+            CONFIG.installedItems.theme = data
+            break
+        default:
+            return null
+    }
+}

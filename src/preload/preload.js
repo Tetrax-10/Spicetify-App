@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron"
+
 import { ipcRendererListners } from "./preload.ipc-helper"
 import { send, receive } from "./utils/preload.utils"
 import { initConfig } from "./utils/preload.config"
@@ -13,6 +14,7 @@ import { initConfig } from "./utils/preload.config"
         ////////// Get Info //////////
         getOS: () => ipcRenderer.invoke("getFromElectron/getOS"),
         getPath: (type) => ipcRenderer.invoke("getFromElectron/getPath", type),
+        formatPath: (type, data) => ipcRenderer.invoke("getFromElectron/formatPath", [type, data]),
 
         ////////// Send Instructions //////////
         windowControls: (action) => ipcRenderer.send("sendToElectron/windowControls", action),

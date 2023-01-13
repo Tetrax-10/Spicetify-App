@@ -1,4 +1,5 @@
 import { ipcRenderer } from "electron"
+
 import defaultConfig from "../../public/defaultConfig.json"
 
 export async function initConfig() {

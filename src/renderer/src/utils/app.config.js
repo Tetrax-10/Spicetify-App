@@ -5,8 +5,7 @@ export function getConfig() {
 }
 
 export async function saveConfig(item, value) {
-    if (item !== undefined && value !== undefined) {
-        console.log("item")
+    if (item) {
         let tempConfig = await ElectronAPI.getConfig()
         tempConfig[item] = value
         ElectronAPI.saveConfig(tempConfig)

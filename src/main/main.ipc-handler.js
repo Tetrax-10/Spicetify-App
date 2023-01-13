@@ -1,5 +1,6 @@
 import { ipcMain } from "electron"
-import { getOS, getPath, windowControls } from "./utils/main.utils"
+
+import { getOS, getPath, windowControls, formatPath } from "./utils/main.utils"
 import { getConfig, saveConfig } from "./utils/main.config"
 import { execShellCommands } from "./utils/main.shell"
 import { downloadGithubFile, downloadGithubLatestRelease } from "./utils/main.downloader/main.downloader"
@@ -12,6 +13,9 @@ export default function handler() {
     })
     ipcMain.handle("getFromElectron/getPath", async (event, type) => {
         return getPath(type)
+    })
+    ipcMain.handle("getFromElectron/formatPath", async (event, data) => {
+        return formatPath(data)
     })
 
     ////////// Send Instructions //////////

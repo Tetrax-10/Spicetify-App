@@ -1,5 +1,7 @@
-import { mainWindow } from "../index"
 import { app } from "electron"
+import path from "path"
+
+import { mainWindow } from "../index"
 
 export function getOS() {
     let os = process.platform
@@ -18,17 +20,19 @@ export function getOS() {
 export function getPath(type) {
     const os = getOS()
     const joiner = os === "Windows" ? "\\" : "/"
-    const userData = app.getPath("userData")
+    const userData = app.getPath("userData").replace("spicetify-app", "spicetify")
 
     switch (type) {
         case "spicetify.exe-path":
             if (os === "Windows") {
                 return process.env.LOCALAPPDATA + "\\spicetify"
             }
+            break
         case "spicetify.exe":
             if (os === "Windows") {
                 return process.env.LOCALAPPDATA + "\\spicetify\\spicetify.exe"
             }
+            break
         case "spicetify-user-config":
             return userData
         case "spicetify-extensions-folder":
@@ -53,5 +57,15 @@ export function windowControls(action) {
         case "close":
             mainWindow.close()
             break
+    }
+}
+
+export function formatPath(rawData) {
+    let [type, data] = rawData
+    switch (type) {
+        case "get-fileName":
+            return path.basename(data)
+        default:
+            return null
     }
 }
