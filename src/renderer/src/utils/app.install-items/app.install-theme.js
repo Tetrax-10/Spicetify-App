@@ -23,4 +23,4 @@ export async function installTheme(id) {
     saveConfig("installedItems", CONFIG.installedItems)
     await ElectronAPI.downloadTheme(themeFiles)
 }
-// installTheme("Nord-Spotify")
+// installTheme("nord-spotify")

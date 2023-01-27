@@ -49,3 +49,7 @@ export async function createFolder(path) {
 export async function moveFolder(src, destination) {
     execShellCommands([`mv -Force ${src} ${destination}`])
 }
+
+export async function removeFolder(src) {
+    execShellCommands([`rm -r -Force ${src}`])
+}

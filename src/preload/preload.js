@@ -24,6 +24,7 @@ import { initConfig } from "./utils/preload.config"
         downloadGithubFile: (url) => ipcRenderer.send("sendToElectron/downloadGithubFile", url),
         downloadGithubLatestRelease: (user, repo, assetType) => ipcRenderer.send("sendToElectron/downloadGithubLatestRelease", [user, repo, assetType]),
         downloadTheme: (themeFiles) => ipcRenderer.send("sendToElectron/downloadTheme", themeFiles),
+        downloadExtensions: (urls) => ipcRenderer.send("sendToElectron/downloadExtensions", urls),
 
         ////////// Config //////////
         initConfig: await initConfig(),

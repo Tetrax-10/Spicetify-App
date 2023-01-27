@@ -5,6 +5,7 @@ import { getConfig, saveConfig } from "./utils/main.config"
 import { execShellCommands } from "./utils/main.shell"
 import { downloadGithubFile, downloadGithubLatestRelease } from "./utils/main.downloader/main.downloader"
 import { downloadTheme } from "./utils/main.downloader/main.download.theme"
+import { downloadExtensions } from "./utils/main.downloader/main.download.extension"
 
 export default function handler() {
     ////////// Get Info //////////
@@ -33,8 +34,11 @@ export default function handler() {
     ipcMain.on("sendToElectron/downloadGithubLatestRelease", (event, data) => {
         downloadGithubLatestRelease(data)
     })
-    ipcMain.on("sendToElectron/downloadTheme", (event, url) => {
-        downloadTheme(url)
+    ipcMain.on("sendToElectron/downloadTheme", (event, themeFiles) => {
+        downloadTheme(themeFiles)
+    })
+    ipcMain.on("sendToElectron/downloadExtensions", (event, urls) => {
+        downloadExtensions(urls)
     })
 
     ////////// Config //////////
