@@ -19,28 +19,27 @@ export function getOS() {
 
 export function getPath(type) {
     const os = getOS()
-    const joiner = os === "Windows" ? "\\" : "/"
     const userData = app.getPath("userData").replace("spicetify-app", "spicetify")
 
     switch (type) {
         case "spicetify.exe-path":
             if (os === "Windows") {
-                return process.env.LOCALAPPDATA + "\\spicetify"
+                return path.join(process.env.LOCALAPPDATA, "spicetify")
             }
             break
         case "spicetify.exe":
             if (os === "Windows") {
-                return process.env.LOCALAPPDATA + "\\spicetify\\spicetify.exe"
+                return path.join(process.env.LOCALAPPDATA, "spicetify", "spicetify.exe")
             }
             break
         case "spicetify-user-config":
             return userData
         case "spicetify-extensions-folder":
-            return userData + joiner + "Extensions"
+            return path.join(userData, "Extensions")
         case "spicetify-themes-folder":
-            return userData + joiner + "Themes"
+            return path.join(userData, "Themes")
         case "spicetify-custom_apps-folder":
-            return userData + joiner + "CustomApps"
+            return path.join(userData, "CustomApps")
         default:
             return null
     }
@@ -68,4 +67,8 @@ export function formatPath(rawData) {
         default:
             return null
     }
+}
+
+export function logMessageInRenderer(message) {
+    mainWindow.webContents.send("sendToRenderer/log", message)
 }

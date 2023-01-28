@@ -1,6 +1,7 @@
 {
     "nord-spotify": {
         "Name": "Nord Spotify",
+        "themeFolderName": "Nord-Spotify",
         "developers": [{ "name": "Tetrax-10", "link": "https://github.com/Tetrax-10" }],
         "description": "A better Nord Theme with no Ads",
         "themeRepoLink": "https://github.com/Tetrax-10/Nord-Spotify",
@@ -10,7 +11,7 @@
         "usercss": "Nord-Spotify/user.css",
         "colorini": "Nord-Spotify/color.ini",
         "jsHelper": ["src/nord.js"],
-        "assetsFolder": null,
+        "assetsFolder": "src",
         "patches": "",
         "tags": ["nord", "dynamic-colors", "dynamic-cover-art"],
         "lastSupportedVersion": "latest"

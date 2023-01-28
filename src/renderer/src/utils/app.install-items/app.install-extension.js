@@ -13,7 +13,6 @@ export async function installExtension(id) {
         return rawFileLink + path
     })
     saveConfig("installedItems", CONFIG.installedItems)
-    console.log(extensionFiles)
-    // await ElectronAPI.downloadExtensions(extensionFiles)
+    await ElectronAPI.downloadExtensions(extensionFiles)
 }
-installExtension("sort-by-play-count")
+// await installExtension("ad-block")

@@ -11,5 +11,18 @@
         "patches": "",
         "tags": ["sort"],
         "lastSupportedVersion": "latest"
+    },
+    "ad-block": {
+        "Name": "Ad Block",
+        "developers": [{ "name": "CharlieS1103", "link": "https://github.com/Tetrax-10" }],
+        "description": "Blocks audio and UI ads in Spotify",
+        "themeRepoLink": "https://github.com/CharlieS1103/spicetify-extensions",
+        "branch": "master",
+        "preview": "adblock/adblock.png",
+        "readme": "adblock/README.md",
+        "mainJS": ["adblock/adblock.js"],
+        "patches": "",
+        "tags": ["ad"],
+        "lastSupportedVersion": "latest"
     }
 }

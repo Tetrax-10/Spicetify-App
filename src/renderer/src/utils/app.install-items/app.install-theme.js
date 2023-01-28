@@ -10,7 +10,7 @@ export async function installTheme(id) {
     const [, , , user, repo] = themeData.themeRepoLink.split("/")
     const rawFileLink = `https://raw.githubusercontent.com/${user}/${repo}/${themeData.branch}/`
     let themeFiles = {
-        folderName: id,
+        folderName: themeData.themeFolderName,
         usercss: rawFileLink + themeData.usercss,
         colorini: rawFileLink + themeData.colorini,
         jsHelper: themeData.jsHelper.map((path) => {

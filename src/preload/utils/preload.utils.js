@@ -10,7 +10,7 @@ export function send(channel, data) {
 }
 
 export function receive(channel, func) {
-    let validChannels = ["sendToRenderer/shell-output"]
+    let validChannels = ["sendToRenderer/log"]
     if (validChannels.includes(channel)) {
         ipcRenderer.on(channel, (event, ...args) => func(...args))
     } else {
