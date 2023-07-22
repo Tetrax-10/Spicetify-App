@@ -1,3 +1,5 @@
+# 📦 Archiving this repo due to time constraints. Feel free to fork and continue the development! 🍴
+
 # Spicetify App ( Under Development 🛠️ )
 
 A GUI App for Spicetify Cli
